@@ -1,0 +1,7 @@
+apiVersion: alertmanager.monitoring.io/v1
+kind: AlertmanagerRule
+metadata:
+  name: alertmanagerrule-sample
+spec:
+  # Add fields here
+  foo: bar

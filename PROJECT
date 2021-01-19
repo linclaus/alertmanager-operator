@@ -1,0 +1,7 @@
+domain: monitoring.io
+repo: github.com/linclaus/alertmanager-operator
+resources:
+- group: alertmanager
+  kind: AlertmanagerRule
+  version: v1
+version: "2"
