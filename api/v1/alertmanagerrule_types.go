@@ -29,16 +29,20 @@ type AlertmanagerRuleSpec struct {
 	// Important: Run "make" to regenerate code after modifying this file
 
 	// Foo is an example field of AlertmanagerRule. Edit AlertmanagerRule_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	Status     string `json:"status,omitempty"`
+	RetryTimes int    `json:"retryTimes,omitempt"`
 }
 
 // AlertmanagerRuleStatus defines the observed state of AlertmanagerRule
 type AlertmanagerRuleStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+	Route    Route    `json:"route,omitempty"`
+	Receiver Receiver `json:"receiver,omitempty"`
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
 
 // AlertmanagerRule is the Schema for the alertmanagerrules API
 type AlertmanagerRule struct {
@@ -56,6 +60,31 @@ type AlertmanagerRuleList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
 	Items           []AlertmanagerRule `json:"items"`
+}
+
+type Route struct {
+	GroupBy       []string          `json:"groupBy"`
+	Match         map[string]string `json:"match"`
+	GroupInterval string            `json:"groupInterval,omitempt"`
+}
+
+type Receiver struct {
+	EmailConfigs   []EmailSimpleConfig `json:"emailConfigs,omitempt"`
+	WebhookConfigs []WebhookConfig     `json:"webhookConfigs,omitempt"`
+}
+
+type EmailSimpleConfig struct {
+	SendResolved  bool   `json:"sendResolved,omitempt"`
+	To            string `json:"to"`
+	Subject       string `json:"subject,omitempt"`
+	Html          string `json:"html,omitempt"`
+	StatusWebhook string `json:"statusWebhook,omitempt"`
+	RequireTLS    bool   `json:"requireTLS,omitempt"`
+}
+
+type WebhookConfig struct {
+	SendResolved bool   `json:"sendResolved,omitempt"`
+	Url          string `json:"url"`
 }
 
 func init() {
