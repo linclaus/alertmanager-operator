@@ -36,18 +36,6 @@ spec:
         spec:
           description: AlertmanagerRuleSpec defines the desired state of AlertmanagerRule
           properties:
-            retryTimes:
-              type: integer
-            status:
-              description: Foo is an example field of AlertmanagerRule. Edit AlertmanagerRule_types.go
-                to remove/update
-              type: string
-          required:
-          - retryTimes
-          type: object
-        status:
-          description: AlertmanagerRuleStatus defines the observed state of AlertmanagerRule
-          properties:
             receiver:
               properties:
                 emailConfigs:
@@ -91,9 +79,8 @@ spec:
               - webhookConfigs
               type: object
             route:
-              description: 'INSERT ADDITIONAL STATUS FIELD - define observed state
-                of cluster Important: Run "make" to regenerate code after modifying
-                this file'
+              description: Foo is an example field of AlertmanagerRule. Edit AlertmanagerRule_types.go
+                to remove/update
               properties:
                 groupBy:
                   items:
@@ -110,6 +97,19 @@ spec:
               - groupInterval
               - match
               type: object
+          type: object
+        status:
+          description: AlertmanagerRuleStatus defines the observed state of AlertmanagerRule
+          properties:
+            retryTimes:
+              type: integer
+            status:
+              description: 'INSERT ADDITIONAL STATUS FIELD - define observed state
+                of cluster Important: Run "make" to regenerate code after modifying
+                this file'
+              type: string
+          required:
+          - retryTimes
           type: object
       type: object
   version: v1
