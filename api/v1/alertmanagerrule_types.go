@@ -29,16 +29,16 @@ type AlertmanagerRuleSpec struct {
 	// Important: Run "make" to regenerate code after modifying this file
 
 	// Foo is an example field of AlertmanagerRule. Edit AlertmanagerRule_types.go to remove/update
-	Status     string `json:"status,omitempty"`
-	RetryTimes int    `json:"retryTimes,omitempt"`
+	Route    Route    `json:"route,omitempty"`
+	Receiver Receiver `json:"receiver,omitempty"`
 }
 
 // AlertmanagerRuleStatus defines the observed state of AlertmanagerRule
 type AlertmanagerRuleStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
-	Route    Route    `json:"route,omitempty"`
-	Receiver Receiver `json:"receiver,omitempty"`
+	Status     string `json:"status,omitempty"`
+	RetryTimes int    `json:"retryTimes,omitempt"`
 }
 
 // +kubebuilder:object:root=true
