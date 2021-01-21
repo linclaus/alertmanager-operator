@@ -74,12 +74,11 @@ type Receiver struct {
 }
 
 type EmailSimpleConfig struct {
-	SendResolved  bool   `json:"sendResolved,omitempt"`
-	To            string `json:"to"`
-	Subject       string `json:"subject,omitempt"`
-	Html          string `json:"html,omitempt"`
-	StatusWebhook string `json:"statusWebhook,omitempt"`
-	RequireTLS    bool   `json:"requireTLS,omitempt"`
+	SendResolved bool   `json:"sendResolved,omitempt"`
+	To           string `json:"to"`
+	Subject      string `json:"subject,omitempt"`
+	Html         string `json:"html,omitempt"`
+	RequireTLS   bool   `json:"requireTLS,omitempt"`
 }
 
 type WebhookConfig struct {

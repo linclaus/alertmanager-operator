@@ -47,8 +47,6 @@ spec:
                         type: boolean
                       sendResolved:
                         type: boolean
-                      statusWebhook:
-                        type: string
                       subject:
                         type: string
                       to:
@@ -57,7 +55,6 @@ spec:
                     - html
                     - requireTLS
                     - sendResolved
-                    - statusWebhook
                     - subject
                     - to
                     type: object

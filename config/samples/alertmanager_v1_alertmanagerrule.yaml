@@ -4,4 +4,20 @@ metadata:
   name: alertmanagerrule-sample
 spec:
   # Add fields here
-  foo: bar
+  route: 
+    groupBy: 
+      - strategy_id
+      - group_id
+    match:
+      strategy_id: alertmanagerrule-sample
+    groupInterval: 5m
+  receiver:
+    emailConfigs:
+    - sendResolved: false
+      to: 915917782@qq.com
+      subject: '{{ template "email.custom.subject" . }}'
+      html: '{{ template "email.custom.html" . }}'
+      requireTLS: false
+    webhookConfigs:
+    - sendResolved: false
+      url: http://stock-weixin/alert
