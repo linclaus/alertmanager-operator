@@ -1,4 +1,4 @@
-configPath: "./"
+configPath: "/etc/alertmanager/"
 configName: "alertmanager.yml"
 wehHook: "http://stock-weixin/alert"
 alertmanager:
