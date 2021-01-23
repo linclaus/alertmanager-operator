@@ -10,6 +10,16 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
+env:  
+  - name: CONFIGPATH
+    value: /etc/alertmanager/
+  - name: CONFIGNAME
+    value: alertmanager.yml
+  - name: WEBHOOK
+    value: http://stock-weixin/alert
+  - name: ALERTMANAGER.HOST
+    value: http://alertmanager:9093
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
