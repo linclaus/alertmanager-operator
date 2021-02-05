@@ -1,5 +1,5 @@
 configPath: "/etc/alertmanager/"
 configName: "alertmanager.yml"
-wehHook: "http://stock-weixin/alert"
+wehHook: "http://stock-api/wx/alert"
 alertmanager:
   host: "http://alertmanager:9093"

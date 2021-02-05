@@ -25,7 +25,6 @@ func AddAlertmanagerStrategy(rule alertmanagerv1.AlertmanagerRule) error {
 	}
 	cfg.Receivers = updateReceivers(cfg.Receivers, rule.Name, contactValues)
 	cfg.Route.Routes = updateRoutes(cfg.Route.Routes, rule.Name)
-	fmt.Println(cfg)
 	err = writeConfigToFile(*cfg)
 	return err
 }
