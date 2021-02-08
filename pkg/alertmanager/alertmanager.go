@@ -6,6 +6,7 @@ import (
 
 	"gopkg.in/yaml.v2"
 
+	alertmanagerv1 "github.com/linclaus/alertmanager-operator/api/v1"
 	alertmangerconfig "github.com/prometheus/alertmanager/config"
 	commoncfg "github.com/prometheus/common/config"
 	prometheuscfg "github.com/prometheus/common/config"
@@ -105,12 +106,12 @@ type EmailConfig struct {
 	TLSConfig    prometheuscfg.TLSConfig    `yaml:"tls_config,omitempty" json:"tls_config,omitempty"`
 }
 
-func updateReceivers(rvs []*Receiver, ruleName string, contactValues []string) []*Receiver {
+func updateReceivers(rvs []*Receiver, receiverName string, contactValues []string) []*Receiver {
 	//TODO multiEmailConfig if multiContactValues
 	var rv *Receiver
 	index := -1
 	for i, receive := range rvs {
-		if receive.Name == ruleName {
+		if receive.Name == receiverName {
 			index = i
 			break
 		}
@@ -137,7 +138,7 @@ func updateReceivers(rvs []*Receiver, ruleName string, contactValues []string) [
 		},
 	}
 	rv = &Receiver{
-		Name:           ruleName,
+		Name:           receiverName,
 		EmailConfigs:   ecs,
 		WebhookConfigs: []*alertmangerconfig.WebhookConfig{wc},
 	}
@@ -149,10 +150,10 @@ func updateReceivers(rvs []*Receiver, ruleName string, contactValues []string) [
 	}
 }
 
-func deleteReceivers(rvs []*Receiver, ruleName string, contactValues []string, all bool) ([]*Receiver, bool) {
+func deleteReceivers(rvs []*Receiver, receiverName string, contactValues []string, all bool) ([]*Receiver, bool) {
 	index := -1
 	for i, receive := range rvs {
-		if receive.Name == ruleName {
+		if receive.Name == receiverName {
 			index = i
 			break
 		}
@@ -176,7 +177,7 @@ func deleteReceivers(rvs []*Receiver, ruleName string, contactValues []string, a
 				}
 			}
 			rv := &Receiver{
-				Name:         ruleName,
+				Name:         receiverName,
 				EmailConfigs: ecs,
 			}
 			if len(ecs) == 0 {
@@ -192,11 +193,11 @@ func deleteReceivers(rvs []*Receiver, ruleName string, contactValues []string, a
 	}
 }
 
-func updateRoutes(rts []*alertmangerconfig.Route, ruleName string) []*alertmangerconfig.Route {
+func updateRoutes(rts []*alertmangerconfig.Route, newRt alertmanagerv1.Route) []*alertmangerconfig.Route {
 	var rt *alertmangerconfig.Route
 	index := -1
 	for i, route := range rts {
-		if route.Receiver == ruleName {
+		if route.Receiver == newRt.Receiver {
 			index = i
 			break
 		}
@@ -204,11 +205,11 @@ func updateRoutes(rts []*alertmangerconfig.Route, ruleName string) []*alertmange
 	ri, _ := model.ParseDuration(ALERTMANAGER_REPEAT_INTERVAL)
 	gi, _ := model.ParseDuration(ALERTMANAGER_GROUP_INTERVAL)
 	rt = &alertmangerconfig.Route{
-		Match:          map[string]string{"strategy_id": ruleName},
-		Receiver:       ruleName,
+		Match:          newRt.Match,
+		Receiver:       newRt.Receiver,
 		RepeatInterval: &ri,
 		GroupInterval:  &gi,
-		GroupByStr:     []string{"strategy_id"},
+		GroupByStr:     newRt.GroupBy,
 	}
 	if index == -1 {
 		return append(rts, rt)
@@ -218,10 +219,10 @@ func updateRoutes(rts []*alertmangerconfig.Route, ruleName string) []*alertmange
 	}
 }
 
-func deleteRoutes(rts []*alertmangerconfig.Route, ruleName string) []*alertmangerconfig.Route {
+func deleteRoutes(rts []*alertmangerconfig.Route, receiverName string) []*alertmangerconfig.Route {
 	index := -1
 	for i, route := range rts {
-		if route.Receiver == ruleName {
+		if route.Receiver == receiverName {
 			index = i
 			break
 		}

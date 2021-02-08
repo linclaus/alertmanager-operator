@@ -23,8 +23,8 @@ func AddAlertmanagerStrategy(rule alertmanagerv1.AlertmanagerRule) error {
 	for _, ec := range rule.Spec.Receiver.EmailConfigs {
 		contactValues = append(contactValues, ec.To)
 	}
-	cfg.Receivers = updateReceivers(cfg.Receivers, rule.Name, contactValues)
-	cfg.Route.Routes = updateRoutes(cfg.Route.Routes, rule.Name)
+	cfg.Receivers = updateReceivers(cfg.Receivers, rule.Spec.Receiver.Name, contactValues)
+	cfg.Route.Routes = updateRoutes(cfg.Route.Routes, rule.Spec.Route)
 	err = writeConfigToFile(*cfg)
 	return err
 }
@@ -39,10 +39,10 @@ func DeleteAlertmanagerStrategy(rule alertmanagerv1.AlertmanagerRule) error {
 	for _, ec := range rule.Spec.Receiver.EmailConfigs {
 		contactValues = append(contactValues, ec.To)
 	}
-	rvs, deleteRoute := deleteReceivers(cfg.Receivers, rule.Name, contactValues, false)
+	rvs, deleteRoute := deleteReceivers(cfg.Receivers, rule.Spec.Receiver.Name, contactValues, false)
 	cfg.Receivers = rvs
 	if deleteRoute {
-		cfg.Route.Routes = deleteRoutes(cfg.Route.Routes, rule.Name)
+		cfg.Route.Routes = deleteRoutes(cfg.Route.Routes, rule.Spec.Route.Receiver)
 	}
 	fmt.Println(cfg)
 	err = writeConfigToFile(*cfg)
