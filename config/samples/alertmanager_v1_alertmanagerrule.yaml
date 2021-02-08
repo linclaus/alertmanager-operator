@@ -5,6 +5,7 @@ metadata:
 spec:
   # Add fields here
   route: 
+    receiver: receiverName
     groupBy: 
       - strategy_id
       - group_id
@@ -12,6 +13,7 @@ spec:
       strategy_id: alertmanagerrule-sample
     groupInterval: 5m
   receiver:
+    name: receiverName
     emailConfigs:
     - sendResolved: false
       to: 915917782@qq.com

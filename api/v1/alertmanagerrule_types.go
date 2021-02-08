@@ -66,9 +66,11 @@ type Route struct {
 	GroupBy       []string          `json:"groupBy"`
 	Match         map[string]string `json:"match"`
 	GroupInterval string            `json:"groupInterval,omitempt"`
+	Receiver      string            `json:"receiver,omitempt"`
 }
 
 type Receiver struct {
+	Name           string              `json:"name,omitempt"`
 	EmailConfigs   []EmailSimpleConfig `json:"emailConfigs,omitempt"`
 	WebhookConfigs []WebhookConfig     `json:"webhookConfigs,omitempt"`
 }
