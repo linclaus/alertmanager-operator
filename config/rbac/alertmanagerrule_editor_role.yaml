@@ -1,0 +1,24 @@
+# permissions for end users to edit alertmanagerrules.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: alertmanagerrule-editor-role
+rules:
+- apiGroups:
+  - alertmanager.monitoring.io
+  resources:
+  - alertmanagerrules
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - alertmanager.monitoring.io
+  resources:
+  - alertmanagerrules/status
+  verbs:
+  - get

@@ -1,0 +1,25 @@
+apiVersion: alertmanager.monitoring.io/v1
+kind: AlertmanagerRule
+metadata:
+  name: alertmanagerrule-sample
+spec:
+  # Add fields here
+  route: 
+    receiver: receiverName
+    groupBy: 
+      - strategy_id
+      - group_id
+    match:
+      strategy_id: alertmanagerrule-sample
+    groupInterval: 5m
+  receiver:
+    name: receiverName
+    emailConfigs:
+    - sendResolved: false
+      to: 915917782@qq.com
+      subject: '{{ template "email.custom.subject" . }}'
+      html: '{{ template "email.custom.html" . }}'
+      requireTLS: false
+    webhookConfigs:
+    - sendResolved: false
+      url: http://stock-weixin/alert

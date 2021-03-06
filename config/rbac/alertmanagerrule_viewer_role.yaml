@@ -1,0 +1,20 @@
+# permissions for end users to view alertmanagerrules.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: alertmanagerrule-viewer-role
+rules:
+- apiGroups:
+  - alertmanager.monitoring.io
+  resources:
+  - alertmanagerrules
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - alertmanager.monitoring.io
+  resources:
+  - alertmanagerrules/status
+  verbs:
+  - get
